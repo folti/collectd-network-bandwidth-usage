@@ -11,8 +11,11 @@ else
 fi
 
 while sleep "$INTERVAL"; do
-    RX=`cat /sys/class/net/$1/statistics/rx_bytes`
-    TX=`cat /sys/class/net/$1/statistics/tx_bytes`
-    
+    RX=$(cat "/sys/class/net/$1/statistics/rx_bytes")
+    TX=$(cat "/sys/class/net/$1/statistics/tx_bytes")
+
+    # shellcheck disable=SC2039
     echo "PUTVAL $HOSTNAME/network-bandwidth-usage/if_octets interval=$INTERVAL N:$RX:$TX"
 done
+
+# vim: et sw=4 ts=4
